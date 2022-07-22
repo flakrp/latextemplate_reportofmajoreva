@@ -1,0 +1,105 @@
+%设置基本class，A4纸
+\documentclass[UTF8,a4paper]{ctexart}
+
+%设置基本字体大小，四号14.4磅（pt）
+\usepackage[fontsize=14.4]{fontsize}
+%\setlength{\baselineskip}{28pt}
+%\linespread{1.6}
+
+%设置页面布局，页边距，页眉页脚
+\usepackage[top=30mm, bottom=20mm, left=28mm, right=26mm,headsep=0mm,headheight=15mm, footskip=17.5mm]{geometry}
+
+%两端对齐，正文中\justifying
+\usepackage{ragged2e}
+
+% 设置页眉、页脚
+\usepackage{fancyhdr}
+\lhead{}% 页眉左边设为空
+\chead{}% 页眉中间设为空
+\rhead{}% 页眉右边设为空
+\lfoot{}% 页脚左边设为空
+\cfoot{\thepage}% 页脚中间显示页码
+\rfoot{}% 页脚右边设为空
+\renewcommand{\headrulewidth}{0pt}%页眉修饰线宽度0（不显示）
+\setlength{\footskip}{0mm}
+
+%设置字体
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+\setCJKmainfont{宋体}[AutoFakeBold={2}]
+%\newCJKfontfamily\songti{宋体}[AutoFakeBold] % 重定义
+
+%各级标题字体，使用伪粗体
+\newCJKfontfamily\sectioncf[AutoFakeBold={2}]{黑体}
+\newCJKfontfamily\subsectioncf[AutoFakeBold={2}]{楷体}
+\newCJKfontfamily\subsubsectioncf[AutoFakeBold={2}]{仿宋}
+\newCJKfontfamily\subsubsubsectioncf[AutoFakeBold={2}]{仿宋}
+\usepackage{titlesec} %自定义多级标题格式的宏包
+%\titleformat{章节命令}[形状]{格式}{标题序号}{序号与标题间距}{标题前命令}[标题后命令]
+%一级标题
+\titleformat{\section}
+    [block]
+    {\hspace{2em}\zihao{3}\sectioncf\bfseries}
+    {\zihao{3}\chinese{section}、}
+    {0pt}
+    {}[]
+\titlespacing{\section}{0pt}{0pt}{0pt}%段前段后间距0
+%二级标题
+\titleformat{\subsection}
+    [block]
+    {\hspace{2em}\zihao{3}\subsectioncf\bfseries}
+    {（\chinese{subsection}）}
+    {0pt}
+    {}[]
+\titlespacing{\subsection}{0pt}{0pt}{0pt}%段前段后间距0
+%三级标题
+\titleformat{\subsubsection}
+    [block]
+    {\hspace{2em}\zihao{4}\subsubsectioncf\bfseries}
+    {\arabic{subsection}.\arabic{subsubsection}}
+    {0pt}
+    {}[]
+\titlespacing{\subsubsection}{0pt}{0pt}{0pt}%段前段后间距0
+
+%正文段落
+\titleformat{\paragraph}
+    [block]
+    {\hspace{2em}\zihao{4}}
+    {[\arabic{paragraph}]}
+    {1em}
+    {}[]
+
+%设置目录显示等级到3级标题
+\setcounter{tocdepth}{3}
+%设置目录样式
+\usepackage{titletoc}
+\titlecontents{section}[1em]{}{}{}{}[]
+
+\CTEXsetup[format={\zihao{4}\sectioncf}]{section}
+%\CTEXsetup[name={第,章}]{section}                            %设置章标题字号为Large，居左
+\CTEXsetup[number={ \chinese{section}}]{section}                      %section形式改为一,二,三,..
+\CTEXsetup[format={\zihao{-4}}]{section}
+\CTEXsetup[name={（,）}]{subsection}
+\CTEXsetup[number={\chinese{subsection}}]{subsection}                %subsection形式改为（一,二,三,...）
+\CTEXsetup[number=\arabic{subsubsection}]{subsubsection}             %subsubsection形式改为1，2，3，...
+
+\dottedcontents{section}[2em]{\normalsize}{2.0em}{4pt}
+\dottedcontents{subsection}[3.0em]{\normalsize}{2.0em}{4pt}
+\dottedcontents{subsubsection}[4.0em]{\normalsize}{2.0em}{4pt}
+
+
+% 设置标题
+\usepackage{caption}
+\captionsetup[table]{font={bf,footnotesize}, labelsep=space, name=表}% 设置表格编号头
+\renewcommand {\thetable} {\thesection{}-\arabic{table}\,}%重定义表序号样式
+%\renewcommand {\thefigure} {\thechapter{}.\arabic{figure}}%重定义图序号样式
+
+\usepackage{makecell}
+\usepackage{multirow}    %纵向合并单元格
+\usepackage{booktabs}    %绘制三线表(\toprule , \midrule , \bottonrule , \cmidrule)
+% 横向合并 \multicolumn{⟨n⟩}{⟨column-spec⟩}{⟨item⟩}。其中 ⟨n⟩ 为要合并的列数，⟨column-spec⟩ 为合并单元格后的列格式，只允许出现一个 l/c/r 或p 格式。如果合并前的单元格前后带表格线 |，合并后的列格式也要带 | 以使得表格的竖线一致
+% 纵向合并 \multirow{⟨n⟩}{⟨width⟩}{⟨item⟩},⟨width⟩ 为合并后单元格的宽度，可以填*以使用自然宽度
+
+%表格行号自动序号
+\newcounter{rowno}
+\setcounter{rowno}{0}
